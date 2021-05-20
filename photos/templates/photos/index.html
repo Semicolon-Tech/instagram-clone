@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'photos/css/index.css' %}">
+
+    <title>Instagram</title>
+</head>
+<body>
+    <div class="body">
+        <h1>Instagram</h1>
+
+        <div class="upload-image-form">
+            <form action="{% url 'index' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ photo_model_form }}
+                <input type="submit" name="submit" value="Submit">
+            </form>
+        </div>
+
+        <div class="photos">
+            {% for photo in photos %}
+                <div class="photo">
+                    <img src="{{ photo.image.url }}" alt="{{ photo.image.name }}">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
